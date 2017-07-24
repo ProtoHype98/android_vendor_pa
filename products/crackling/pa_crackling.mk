@@ -12,15 +12,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Inherit from those products. Most specific first.
-$(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
-
 TARGET_BOOT_ANIMATION_RES := 720
 
 include device/qcom/common/common.mk
 
-# Inherit from crackling device
-$(call inherit-product, device/wileyfox/crackling/device.mk)
+$(call inherit-product, device/motorola/falcon/full_crackling.mk)
 
 # Must define platform variant before including any common things
 TARGET_BOARD_PLATFORM_VARIANT := msm8916
