@@ -16,7 +16,7 @@ TARGET_BOOT_ANIMATION_RES := 720
 
 include device/qcom/common/common.mk
 
-$(call inherit-product, device/motorola/falcon/full_crackling.mk)
+$(call inherit-product, device/wileyfox/crackling/full_crackling.mk)
 
 # Must define platform variant before including any common things
 TARGET_BOARD_PLATFORM_VARIANT := msm8916
