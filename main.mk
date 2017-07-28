@@ -114,6 +114,16 @@ PRODUCT_PACKAGES += WallpaperPicker
 # Build ParanoidPapers
 PRODUCT_PACKAGES += ParanoidPapers
 
+# Telephony
+PRODUCT_PACKAGES += \
+    telephony-ext
+
+PRODUCT_BOOT_JARS += \
+    telephony-ext
+
+PRODUCT_PACKAGES += \
+    libprotobuf-cpp-full
+
 # Include the custom PA bootanimation
 ifeq ($(TARGET_BOOT_ANIMATION_RES),480)
      PRODUCT_COPY_FILES += vendor/pa/prebuilt/bootanimation/480.zip:system/media/bootanimation.zip
