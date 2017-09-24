@@ -16,7 +16,7 @@ export VENDOR := pa
 
 # Include versioning information
 # Format: Major.minor.maintenance(-TAG)
-export PA_VERSION := 7.2.2-DEV
+export PA_VERSION := 7.2.3-DEV
 
 export ROM_VERSION := $(PA_VERSION)-$(shell date -u +%Y%m%d)
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -65,6 +65,9 @@ PRODUCT_COPY_FILES += vendor/pa/prebuilt/etc/default-permissions/pa-permissions.
 # Copy PA specific init file
 PRODUCT_COPY_FILES += vendor/pa/prebuilt/root/init.pa.rc:root/init.pa.rc
 
+# Include explicitly to work around GMS issues
+PRODUCT_PACKAGES += libprotobuf-cpp-full
+
 # Include support for additional filesystems
 PRODUCT_PACKAGES += \
     e2fsck \
@@ -95,6 +98,17 @@ PRODUCT_COPY_FILES += \
 # Build Chromium for Snapdragon (PA Browser)
 PRODUCT_PACKAGES += PABrowser
 
+# Build ParanoidCamera
+ifneq ($(TARGET_USES_AOSP_CAMERA),true)
+PRODUCT_PACKAGES += ParanoidCamera
+endif
+
+# Build ParanoidHub
+PRODUCT_PACKAGES += ParanoidHub
+
+# Build ParanoidPapers
+PRODUCT_PACKAGES += ParanoidPapers
+
 # Build Shuttle Paranoid Android Edition
 PRODUCT_PACKAGES += Shuttle
 
@@ -105,14 +119,8 @@ PRODUCT_PACKAGES += \
 # Build sound recorder
 PRODUCT_PACKAGES += SoundRecorder
 
-# Build ParanoidHub
-PRODUCT_PACKAGES += ParanoidHub
-
 # Build WallpaperPicker
 PRODUCT_PACKAGES += WallpaperPicker
-
-# Build ParanoidPapers
-PRODUCT_PACKAGES += ParanoidPapers
 
 # Include the custom PA bootanimation
 ifeq ($(TARGET_BOOT_ANIMATION_RES),480)
@@ -130,9 +138,6 @@ endif
 ifeq ($(TARGET_BOOT_ANIMATION_RES),2160)
      PRODUCT_COPY_FILES += vendor/pa/prebuilt/bootanimation/2160.zip:system/media/bootanimation.zip
 endif
-
-# Clear security patch level
-PLATFORM_SECURITY_PATCH :=
 
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.build.selinux=1
